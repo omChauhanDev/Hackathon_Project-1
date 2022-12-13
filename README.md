@@ -8,4 +8,3 @@ By using these modules:
  -> (names of the modules and a small desc) 
 
 Encryption and a bit of explanation about the encryption.
-
