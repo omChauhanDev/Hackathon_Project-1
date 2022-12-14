@@ -40,7 +40,7 @@ class DbOperations:
         with conn as conn:
             cursor = conn.cursor()
             cursor.execute(query, (website, username, password))
-               
+            print("Updated the table : ",(website, username, password))               
 
     
 
