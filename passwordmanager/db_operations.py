@@ -23,7 +23,7 @@ class DbOperations:
         with conn as conn:
             cursor = conn.cursor()
             cursor.execute(query)
-            print("Created the table")
+            
 
     def create_record(self, data, tabel_name = "password_info"):
         website = data['website']
@@ -40,9 +40,7 @@ class DbOperations:
         with conn as conn:
             cursor = conn.cursor()
             cursor.execute(query, (website, username, password))
-            print("Updated the table : ",(website, username, password))               
-
-    
+               
 
     def show_record(self, table_name = "password_info"):
         conn = self.connect_to_db()
@@ -54,4 +52,26 @@ class DbOperations:
             cursor = conn.cursor()
             list_records = cursor.execute(query)
             return list_records
-                
+    
+    def update_record(self, data, tabel_name = "password_info"):
+        ID = data["ID"]
+        website = data['website']
+        username = data['username']
+        password = data['password']
+        conn = self.connect_to_db()
+        query = f'''
+        UPDATE {tabel_name} SET website = ?, username = ?, password = ? WHERE ID = ?;
+        '''
+        with conn as conn:
+            cursor = conn.cursor()
+            cursor.execute(query, (website, username, password, ID))
+
+    def delete_record(self, ID, table_name="password_info"):
+        conn = self.connect_to_db()
+        query = f'''
+        DELETE FROM {table_name} WHERE ID = ?
+        ;
+        '''
+        with conn as conn:
+            cursor = conn.cursor()
+            cursor.execute(query, (ID, ))
