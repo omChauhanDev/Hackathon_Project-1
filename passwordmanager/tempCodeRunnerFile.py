@@ -1,0 +1,1 @@
+_record), ('Update', 'blue', self.update_record),

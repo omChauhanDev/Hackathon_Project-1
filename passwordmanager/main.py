@@ -1,6 +1,8 @@
 from tkinter import CENTER, Tk, Label, Button, Entry, Frame, END, Toplevel
 from tkinter import  ttk
 from db_operations import DbOperations
+import customtkinter
+
 
 
 class root_window:
@@ -9,22 +11,22 @@ class root_window:
         self.db = db
         self.root=root
         self.root.title("Password Manager")
-        self.root.geometry("900x600+40+40")
+        self.root.geometry("1520x780+0+0")
 
-        head_title = Label(self.root, text='Password Manager',width=40,
-        bg="purple", font=("Ariel",20),padx=10,pady=10, justify=CENTER,
-        anchor="center").grid(columnspan=4, padx=140,pady=20)
+        head_title = Label(self.root, text='PASSWORD  MANAGER',width=78,
+        bg="cyan", font=("Arial Rounded MT Bold",20),padx=10,pady=10, justify=CENTER,
+        anchor="center").grid(columnspan=4, padx=90,pady=50)
 
-        self.crud_frame = Frame(self.root, highlightbackground="black",
-        highlightthickness=1, padx=10, pady=30)
-        self.crud_frame.grid()
+        self.crud_frame = Frame(self.root, highlightbackground="brown",
+        highlightthickness=5, padx=50, pady=40)
+        self.crud_frame.grid(columnspan=5,padx=12,pady=15)
         self.create_entry_labels()
         self.create_entry_boxes()
         self.create_crud_buttons()
-        self.search_entry = Entry(self.crud_frame, width = 30, font = ("Ariel", 12))
+        self.search_entry = Entry(self.crud_frame, width = 30, font = ("Ariel", 14))
         self.search_entry.grid(row = self.row_no, column = self.col_no)
         self.col_no += 1
-        Button(self.crud_frame, text = "Search", bg = "yellow", font = ("Ariel", 12),
+        Button(self.crud_frame, text = "Search", bg = "gold", font = ("Ariel", 14),
         width = 20).grid(row = self.row_no, column = self.col_no, padx = 5, pady = 5)
 
         self.create_records_tree()
@@ -33,24 +35,24 @@ class root_window:
         self.col_no, self.row_no = 0, 0
         labels_info = ('ID', 'Website', 'Username', 'Password')
         for label_info in labels_info:
-            Label(self.crud_frame, text=label_info, bg='grey',
-            fg='white', font=("Ariel",12), padx=5, pady=2).grid(row=self.row_no,
-            column=self.col_no,padx=5, pady=2)
+            Label(self.crud_frame, text=label_info, bg='black',
+            fg='white', font=("Ariel",14), padx=5, pady=2).grid(row=self.row_no,
+            column=self.col_no,padx=5, pady=3)
             self.col_no+=1
 
     def create_crud_buttons(self):
         self.row_no+=1
         self.col_no = 0
-        buttons_info = (('Save', 'green', self.save_record), ('Update', 'blue', self.update_record),
-        ('Delete', 'red', self.delete_record), ('Copy Password', 'violet', self.copy_record), ("Show All Records", "purple",
+        buttons_info = (('Save', 'dark green', self.save_record), ('Update', 'navy', self.update_record),
+        ('Delete', 'violet red', self.delete_record), ('Copy Password', 'salmon', self.copy_record), ("Show All Records", "medium orchid",
         self.show_records))
         for btn_info in buttons_info:
             if btn_info[0] == "Show All Records":
                 self.row_no += 1
                 self.col_no = 0
             Button(self.crud_frame, text=btn_info[0], bg=btn_info[1],
-            fg='white', font=("Ariel",12), padx=2, pady=1, width=20, command = btn_info[2]).grid(row=self.row_no,
-            column=self.col_no,padx=5, pady=10)
+            fg='white', font=("Ariel",14), padx=2, pady=1, width=20, command = btn_info[2]).grid(row=self.row_no,
+            column=self.col_no,padx=30, pady=15)
             self.col_no+=1
 
 
@@ -64,8 +66,8 @@ class root_window:
             if i == 3 :
                 show = "*"  
             entry_box = Entry(self.crud_frame, width=20, background='lightgrey',
-            font = ("Ariel", 12), show = show)
-            entry_box.grid(row=self.row_no, column=self.col_no,padx=5,pady=2)
+            font = ("Ariel", 14), show = show)
+            entry_box.grid(row=self.row_no, column=self.col_no,padx=10,pady=10)
             self.col_no+=1
             self.entry_boxes.append(entry_box)
 
@@ -111,7 +113,7 @@ class root_window:
         self.records_tree.heading("Website", text = "Website Name")
         self.records_tree.heading("Username", text = "Username")
         self.records_tree.heading("Password", text = "Password")
-        self.records_tree['displaycolumns'] = ("Website", "Username"    )
+        self.records_tree['displaycolumns'] = ("Website", "Username")
 
         def item_selected(event):
             for selected_item in self.records_tree.selection():
@@ -124,7 +126,7 @@ class root_window:
         
         self.records_tree.bind("<<TreeviewSelect>>", item_selected)
 
-        self.records_tree.grid()
+        self.records_tree.grid(padx=600)
 
 
     #copies directly to the clipboard
@@ -136,22 +138,22 @@ class root_window:
         if self.entry_boxes[3].get() == "":
             message = 'Box is Empty'
             title = "Error"
-        self.showmessage(title, message)
+        #self.showmessage(title, message)
 
-    def showmessage(self, title_box:str=None, message:str=None):
-        TIME_TO_WAIT = 900 #in ms
-        root = Toplevel(self.root)
-        background = "green"
-        if title_box == "Error":
-            background = "red"
+    #def showmessage(self, title_box:str=None, message:str=None):
+        #TIME_TO_WAIT = 900 #in ms
+        #root = Toplevel(self.root)
+        #background = "green"
+        #if title_box == "Error":
+        #   background = "red"
         
-        root.geometry('200x30+600+200')
-        root.title(title_box)
-        Label(root, text = message, background = background, font = ("Ariel", 15), fg = "white").pack(padx = 4, pady = 2)
-        try:
-            root.after(TIME_TO_WAIT, root.destroy)
-        except Exception as e:
-            print("Error occured", e)
+        #root.geometry('200x30+600+200')
+        #root.title(title_box)
+        #Label(root, text = message, background = background, font = ("Ariel", 15), fg = "white").pack(padx = 4, pady = 2)
+        #try:
+        #    root.after(TIME_TO_WAIT, root.destroy)
+        #except Exception as e:
+        #    print("Error occured", e)
 
 if __name__=="__main__":
     #create table if doesn't exists
