@@ -204,7 +204,7 @@ class root_window:
            background = "red"
         
         # setting the size of the window
-        root.geometry('200x30+600+200')
+        root.geometry('200x30+1160+400')
         root.title(title_box)
         Label(root, text = message, background = background, font = ("Ariel", 15), fg = "white").pack(padx = 4, pady = 2)
                 
