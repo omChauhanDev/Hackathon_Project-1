@@ -1,7 +1,7 @@
 from tkinter import CENTER, Tk, Label, Button, Entry, Frame, END, Toplevel
 from tkinter import  ttk
 from db_operations import DbOperations
-import customtkinter
+
 
 
 # Creating a class for the main window
