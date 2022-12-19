@@ -19,9 +19,9 @@ class root_window:
         organizes the widgets in a table-like structure. Basically, it is used to place the widgets at the specified 
         row and column '''
 
-        head_title = Label(self.root, text='PASSWORD  MANAGER',width=78,
+        head_title = Label(self.root, text='PASSWORD  MANAGER',width=80,
         bg="cyan", font=("Arial Rounded MT Bold",20),padx=10,pady=10, justify=CENTER,
-        anchor="center").grid(columnspan=4, padx=90,pady=50)
+        anchor="center").grid(columnspan=4, padx=0,pady=50)
 
         '''
         We are creating a frame for crud operations. CRUD stands for Create, Read, Update, Delete.
@@ -35,18 +35,13 @@ class root_window:
         Calling all the main components of the application in the init function.'''
 
         self.crud_frame = Frame(self.root, highlightbackground="brown",
-        highlightthickness=5, padx=50, pady=40)
-        self.crud_frame.grid(columnspan=5,padx=12,pady=15)
+        highlightthickness=5, padx=10, pady=40)
+        self.crud_frame.grid(columnspan=1,padx=1,pady=15)
 
         # calling the functions to create the labels, buttons, and entry boxes
         self.create_entry_labels()
         self.create_entry_boxes()
         self.create_crud_buttons()
-        self.search_entry = Entry(self.crud_frame, width = 30, font = ("Ariel", 14))
-        self.search_entry.grid(row = self.row_no, column = self.col_no)
-        self.col_no += 1
-        Button(self.crud_frame, text = "Search", bg = "gold", font = ("Ariel", 14),
-        width = 20).grid(row = self.row_no, column = self.col_no, padx = 5, pady = 5)
         
         # creating the view(called tree view) for the records
         self.create_records_tree()
@@ -177,7 +172,7 @@ class root_window:
         # binding the tree view with the function
         self.records_tree.bind("<<TreeviewSelect>>", item_selected)
 
-        self.records_tree.grid(padx=600)
+        self.records_tree.grid(padx=560)
 
 
     #copies directly to the clipboard
@@ -186,10 +181,10 @@ class root_window:
         self.root.clipboard_clear()
         # appending the password to the clipboard
         self.root.clipboard_append(self.entry_boxes[3].get())
-        message = "Password Copied"
+        message = "Password Copied To Clipboard"
         title = "Copy"
         if self.entry_boxes[3].get() == "":
-            message = 'Box is Empty'
+            message = 'Entry Box is Empty'
             title = "Error"
         # showing the message after copying the password
         self.showmessage(title, message)
@@ -204,7 +199,7 @@ class root_window:
            background = "red"
         
         # setting the size of the window
-        root.geometry('200x30+1160+400')
+        root.geometry('300x30+760+415')
         root.title(title_box)
         Label(root, text = message, background = background, font = ("Ariel", 15), fg = "white").pack(padx = 4, pady = 2)
                 
